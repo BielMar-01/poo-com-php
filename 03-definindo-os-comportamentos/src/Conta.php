@@ -6,20 +6,35 @@ class Conta {
     public string $nomeTitular;
     public float $saldo = 0;
 
-    public function sacar(float $valorASacar) {
+    public function sacar(float $valorASacar)
+    {
 
         if ($valorASacar > $this->saldo) {
             echo "Saldo indisponivel";
-        } else {
-            $this->saldo -= $valorASacar;
+            return;
         }
+
+        $this->saldo -= $valorASacar;
     }
 
-    public function depositar(float $valorADepositar): void {
+    public function depositar(float $valorADepositar): void
+    {
         if ($valorADepositar < 0) {
             echo "Valor precisa ser positivo";
-        } else {
-            $this->saldo += $valorADepositar;
+            return;
         }
+
+        $this->saldo += $valorADepositar;
+    }
+
+    public function trasferir(float $valorATransferir, Conta $contaDestino): void
+    {
+        if($valorATransferir > $this->saldo) {
+            echo "Saldo indisponivel";
+            return;
+        }
+
+        $this-> sacar($valorATransferir);
+        $contaDestino->depositar($valorATransferir);
     }
 }
