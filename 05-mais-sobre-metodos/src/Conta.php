@@ -17,6 +17,12 @@ class Conta {
         Conta::$numeroDeContas++;
     }
 
+    public function __destruct(){
+        if (self::$numeroDeContas > 2) {
+            echo "Há mais de uma conta ativa";
+        }
+    }
+
     public function saca(float $valorASacar)
     {
 
